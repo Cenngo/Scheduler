@@ -1,0 +1,13 @@
+#progressIndicator {
+    animation-name: scroll, test;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-direction: alternate, normal;
+    animation-iteration-count: infinite, infinite;
+    letter-spacing: 10px;
+}
+  
+@keyframes scroll {
+    from {transform: translateX(0%);}
+    to {transform: translateX(90%);}
+}

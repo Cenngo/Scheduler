@@ -1,0 +1,42 @@
+{
+    "name": "Scheduler",
+    "version": "1.4.1",
+    "author": "Cenk Ergen",
+    "manifest_version": 2,
+    "description": "Select and Add Classes Automatically",
+    "icons": {
+        "16": "assets/icon16.png",
+        "48": "assets/icon48.png",
+        "128": "assets/icon128.png"
+    },
+    "content_scripts": [
+        {
+            "matches": ["http://www.sis.itu.edu.tr/tr/ders_programlari/LSprogramlar/prg.php?*"],
+            "js": ["scripts/progs.js"],
+            "css": ["styles/progs.css", "styles/bootstrap.min.css"]
+        },
+        {
+            "matches": ["https://web.itu.edu.tr/durgunor/crn.html/*", "http://ssb.sis.itu.edu.tr:9000/pls/PROD/*"],
+            "js": ["scripts/sis.js"]
+        }
+    ],
+    "permissions": ["storage", "bookmarks", "tabs", "alarms", "webNavigation", "contextMenus"],
+    "background": {
+        "scripts": ["scripts/background.js", "scripts/contextMenuConfig.js"],
+        "persistent": false
+    },
+    "browser_action": {
+        "default_popup": "pages/popup/popup.html",
+        "default_title": "ITU Scheduler",
+        "default_icon": {
+            "16": "assets/icon16.png",
+            "48": "assets/icon48.png",
+            "128": "assets/icon128.png"
+        }
+    },
+    "options_ui": {
+        "page": "pages/options/options.html",
+        "open_in_tab": false
+    },
+    "offline_enabled": false
+}

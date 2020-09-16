@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="../../styles/bootstrap.min.css">
+    <link rel="stylesheet" href="./options.css">
+    <title>Hello, world!</title>
+  </head>
+  <body class="bg-dark" style="width: 700px;">
+    <div class="container-fluid">
+
+        <div class="m-2 row align-items-center">
+            <div class="col-4">
+                <strong class="text-light">Time Delay of Auto-Fill:</strong>
+            </div>
+            <div class="col-8">
+                <input placeholder="500" id="autoFillDelay" type="number" class="rounded border-none ml-5">
+                <i class="text-light ml-2">(miliseconds)</i>
+            </div>
+        </div>
+        <div class="m-2 row align-items-center">
+            <div class="col-4">
+                <strong class="text-light">Allow Tab Select:</strong>
+            </div>
+            <div class="col-8">
+                <input type="checkbox" id="tabSelect" class="ml-5">
+                <i class="text-light ml-2">*experimental</i>
+            </div>
+        </div>
+        <hr class="bg-light">
+        <div class="row m-2">
+             <button id="save" class="btn btn-success mx-auto">
+                 Save
+             </button>
+        </div>
+    </div>
+
+    <script src="./options.js"></script>
+  </body>
+</html>
