@@ -14,11 +14,14 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     sendResponse({element: element});
 });
 
-function fillCrn(classes, isManual) {
-    if(!isManual && document.location.href != 'https://web.itu.edu.tr/durgunor/crn.html') {
-        navigateToOpPage();
-    }
+chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    if(message.name != 'navigateToPage') return;
 
+    navigateToOpPage();
+    sendResponse();
+});
+
+function fillCrn(classes, isManual) {
     if(document.getElementsByClassName('dataentrytable')) {
         for(var index = 0; index < 10 && index < classes.length; index++) {
             const field = document.querySelector(`#crn_id${index + 1}`);
@@ -33,10 +36,11 @@ function fillCrn(classes, isManual) {
 }
 
 function navigateToOpPage() {
-    chrome.storage.local.get('navBtn', function(result) {
-        const btn = result.navBtn;
-        const selector = `${btn.tag.toLowerCase()}#${btn.id}`;
+    document.getElementsByClassName('submenulinktext2')[5].click();
 
-        document.querySelector(selector).click();
-    });
+    // const termSelect = document.getElementsByClassName('dataentrytable');
+    // if (termSelect.length == 1) {
+    //     const submit = document.getElementsByTagName('input')[2];
+    //     submit.click();
+    // }
 }

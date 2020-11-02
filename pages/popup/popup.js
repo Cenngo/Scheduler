@@ -1,3 +1,4 @@
+// @ts-nocheck
 let bgPage;
 chrome.runtime.getBackgroundPage(function(window) {
     bgPage = window;
@@ -21,7 +22,7 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 
 // Display function for the saved data
 chrome.storage.local.get(['savedClasses', 'addDropDate'], function(result) {
-    savedClasses = result.savedClasses;
+    const savedClasses = result.savedClasses;
     const list = document.getElementsByClassName('classes')[0];
 
     if(savedClasses) {
@@ -36,16 +37,28 @@ chrome.storage.local.get(['savedClasses', 'addDropDate'], function(result) {
             item.innerHTML = deleteBtn;
             item.className = 'list-group-item bg-dark text-light';
             item.id = cl.Crn;
+            item.getElementsByClassName('removeRow')[0].addEventListener('click', removeRow);
             
             list.appendChild(item);
-            item.addEventListener("click", (ev) => {
-                removeRow(ev.target.closest('li'));
-            });
         }
     }
 
     if(result.addDropDate) document.getElementById('date').value = result.addDropDate;
 });
+
+function removeRow(event) {
+    const row = event.target.closest('li');
+
+    chrome.storage.local.get('savedClasses', function(result) {
+        var savedClasses = result.savedClasses;
+        const index = savedClasses.findIndex(x => x.Crn == row.id);
+        savedClasses.splice(index, 1);
+
+        chrome.storage.local.set({savedClasses: savedClasses}, function() {
+            window.location.reload();
+        })
+    });
+}
 
 document.getElementById('date').addEventListener("input", (ev) => {
     chrome.storage.local.set({addDropDate: ev.target.value}, function() {
@@ -76,18 +89,6 @@ function clearBookmarks(){
     chrome.storage.local.set({savedClasses: []}, function() {
         console.log("All Bookmarks Cleared");
         window.location.reload();
-    });
-}
-
-function removeRow(row){
-    chrome.storage.local.get('savedClasses', function(result) {
-        var savedClasses = result.savedClasses;
-        const index = savedClasses.findIndex(x => x.Crn == row.id);
-        savedClasses.splice(index, 1);
-
-        chrome.storage.local.set({savedClasses: savedClasses}, function() {
-            window.location.reload();
-        })
     });
 }
 

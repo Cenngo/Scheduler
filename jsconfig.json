@@ -1,1 +1,10 @@
-{"typeAcquisition": {"include": ["chrome"]}}
+{ 
+    "typeAcquisition": {
+        "include": [
+            "chrome", "jquery"
+        ]
+    },
+    "compilerOptions": {
+        "checkJs": true
+    }
+}

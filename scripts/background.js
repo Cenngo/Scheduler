@@ -59,7 +59,14 @@ function performAutoFill(alarm) {
 
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     const tabId = tabs[0].id;
-    if(tabs[0].url == 'https://web.itu.edu.tr/durgunor/crn.html') chrome.tabs.reload(tabId);
+    if(tabs[0].url == 'https://web.itu.edu.tr/durgunor/crn.html') {
+      chrome.tabs.reload(tabId);
+    } 
+    else {
+      chrome.tabs.sendMessage(tabId, {name: 'navigateToPage'}, function(response) {
+        
+      });
+    }
   });
   
   // ********************* 
@@ -105,4 +112,4 @@ function changeBadgeState(isActive) {
   else {
       chrome.browserAction.setBadgeText({text: ''});
   }
-}
+} 
